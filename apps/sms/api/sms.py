@@ -1,5 +1,1 @@
-import pydantic
-import functools
-
-class BaseUserModel():
-    
+import africastalking
