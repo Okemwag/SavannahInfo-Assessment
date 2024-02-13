@@ -33,6 +33,7 @@ INSTALLED_APPS = [
     'oauth2_provider',
     'rest_framework',
     'rest_framework.authtoken',
+    'django_nose',
     
 ]
 
@@ -58,6 +59,14 @@ REST_FRAMEWORK = {
 }
 
 
+
+TEST_RUNNER = 'django_nose.NoseTestSuiteRunner'
+
+NOSE_ARGS = [
+    '--with-coverage',
+    '--cover-package=apps.customers,apps.orders,apps.sms',
+
+]
 OAUTH2_PROVIDER = {
     # this is the list of available scopes
     'SCOPES': {'read': 'Read scope', 'write': 'Write scope'}
@@ -141,3 +150,15 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+SECURE_SSL_REDIRECT = True
+SECURE_HSTS_SECONDS = 2_592_000
+SECURE_HSTS_INCLUDE_SUBDOMAINS = True
+SECURE_HSTS_PRELOAD = True
+SESSION_COOKIE_SECURE = True
+CSRF_COOKIE_SECURE = True
+USE_X_FORWARDED_HOST = True
+SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
+SECURE_BROWSER_XSS_FILTER = True
+SECURE_CONTENT_TYPE_NOSNIFF = True
