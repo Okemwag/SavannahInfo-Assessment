@@ -1,0 +1,18 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: pay-server
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: pay-server
+  template:
+    metadata:
+      labels:
+        app: pay-server
+    spec:
+      containers:
+        - name: pay-server
+          
+        
