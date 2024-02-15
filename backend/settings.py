@@ -1,8 +1,13 @@
 import os
 from pathlib import Path
 
+import environ
+
+env = environ.Env(DEBUG=(bool, False))
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
+environ.Env.read_env(BASE_DIR / ".env")
 
 
 # SECURITY WARNING: keep the secret key used in production secret!
@@ -27,7 +32,7 @@ INSTALLED_APPS = [
     # Local apps
     'apps.customers',
     'apps.orders',
-    'apps.sms',
+    
 
     # Third party apps
     'oauth2_provider',
@@ -153,6 +158,8 @@ STATIC_URL = 'static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
+AFRICASTALKING_USERNAME = "sandbox"
+AFRICASTALKING_API_KEY = "5268099fe7215c25cb854a936474c4b05eee29d7a5332e04468e98ab805be4aa"
 SECURE_SSL_REDIRECT = True
 SECURE_HSTS_SECONDS = 2_592_000
 SECURE_HSTS_INCLUDE_SUBDOMAINS = True
