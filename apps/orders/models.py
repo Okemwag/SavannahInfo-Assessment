@@ -1,10 +1,10 @@
 from django.db import models
-from customer import Customer
+from apps.customers.models import Customer
 
 # Create your models here.
 
 class Order(models.Model):
-    customer = models.ForeignKey(Customer.customer_id, on_delete=models.CASCADE)
+    customer = models.ForeignKey(Customer, on_delete=models.CASCADE)
     order_id = models.CharField(max_length=200, unique=True)
     item = models.CharField(max_length=200)
     amount = models.IntegerField()

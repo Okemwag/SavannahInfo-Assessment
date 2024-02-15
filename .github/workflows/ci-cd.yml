@@ -1,0 +1,65 @@
+name: Django CI/CD
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Setup Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: 3.8
+
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+
+    - name: Run tests
+      run: |
+        # Command to run your tests
+
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Login to Docker Hub
+      uses: docker/login-action@v1
+      with:
+        username: ${{ secrets.DOCKER_USERNAME }}
+        password: ${{ secrets.DOCKER_PASSWORD }}
+
+    - name: Build and push Docker image
+      run: |
+        docker build -t my-django-app .
+        docker tag my-django-app <dockerhub_username>/my-django-app:latest
+        docker push <dockerhub_username>/my-django-app:latest
+
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Install Ansible
+      run: sudo apt-add-repository --yes --update ppa:ansible/ansible && sudo apt install ansible -y
+
+    - name: Deploy with Ansible
+      run: ansible-playbook -i inventory/azure_vm deploy.yml
+      env:
+        ANSIBLE_HOST_KEY_CHECKING: False
+        AZURE_VM_IP: ${{ secrets.AZURE_VM_IP }}
+        AZURE_VM_USER: ${{ secrets.AZURE_VM_USER }}
+        AZURE_VM_KEY: ${{ secrets.AZURE_VM_KEY }}
