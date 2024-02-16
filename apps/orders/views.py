@@ -11,7 +11,25 @@ from oauth2_provider.contrib.rest_framework import TokenHasReadWriteScope, Token
 
 # Create your views here.
 class OrderList(generics.ListCreateAPIView):
-    queryset = Order.objects.all()
-    serializer_class = OrderSerializer
     permission_classes = (permissions.IsAuthenticated, TokenHasReadWriteScope)
+    
+    def get(self, request):
+        try:
+            orders = Order.objects.all()
+            serializer = OrderSerializer(orders, many=True)
+            return Response(serializer.data)
+        except Order.DoesNotExist:
+            raise APIException('No orders found')
+
+    def post(self, request):
+        try:
+            serializer = OrderSerializer(data=request.data)
+            if serializer.is_valid():
+                serializer.save()
+                return Response(serializer.data)
+            return Response(serializer.errors, status=400)
+
+        except Order.DoesNotExist:
+            raise APIException('No orders found')
+    
 
