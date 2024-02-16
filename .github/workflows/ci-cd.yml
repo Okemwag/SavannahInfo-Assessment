@@ -57,7 +57,7 @@ jobs:
       run: sudo apt-add-repository --yes --update ppa:ansible/ansible && sudo apt install ansible -y
 
     - name: Deploy with Ansible
-      run: ansible-playbook -i inventory/azure_vm deploy.yml
+      run: ansible-playbook -i inventory/azure_vm playbooks/deploy.yml
       env:
         ANSIBLE_HOST_KEY_CHECKING: False
         AZURE_VM_IP: ${{ secrets.AZURE_VM_IP }}
