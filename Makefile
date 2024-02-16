@@ -20,17 +20,11 @@ migrate:
 createsuperuser:
 	docker compose run --rm backend sh -c "python manage.py createsuperuser"
 
-test-parallel:
-	docker compose run --rm backend sh -c "python manage.py wait_for_db && python manage.py test --parallel"
-
-check:
-	docker compose run --rm backend sh -c "python manage.py wait_for_db && python manage.py check"
-
 test:
-	docker compose run --rm backend sh -c "python manage.py wait_for_db && python manage.py test"
+	docker compose run --rm backend sh -c "python manage.py test"
 
 shell:
-	docker compose run --rm backend sh -c "python manage.py wait_for_db && python manage.py shell"
+	docker compose run --rm backend sh -c "python manage.py shell"
 
 delete-volume:
 	docker compose down

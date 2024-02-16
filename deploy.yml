@@ -1,0 +1,26 @@
+# deploy.yml
+
+---
+- name: Deploy Django application
+  hosts: azure_vm
+  become: yes
+
+  tasks:
+    - name: Copy Django project files
+      synchronize:
+        src: home/Okemwa/SavannahInfo-Assessment
+        dest: /opt/SavannahInfo-Assessment
+        delete: yes
+
+    - name: Install Docker and Docker Compose
+      apt:
+        name: ['docker.io', 'docker-compose']
+        state: present
+
+    - name: Start Docker services
+      service:
+        name: docker
+        state: started
+
+    - name: Build and run Docker containers
+      command: docker-compose -f SavannahInfo-Assessment/docker-compose.yml up -d

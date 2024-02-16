@@ -37,12 +37,12 @@
     - name: Copy Dockerfile to the server
       copy:
         src: Dockerfile
-        dest: /path/on/remote/server/Dockerfile
+        dest: /opt/Dockerfile
 
     - name: Copy docker-compose.yml to the server
       copy:
-        src: /path/to/your/docker-compose.yml
-        dest: /path/on/remote/server/docker-compose.yml
+        src: docker-compose.yml
+        dest: /opt/docker-compose.yml
 
 
 

@@ -6,5 +6,5 @@ app = 'apps.orders'
 
 urlpatterns = [
     path('orders/', OrderList.as_view()),
-    #path('orders/<int:pk>/', OrderViewSet.as_view()),
+    
 ]

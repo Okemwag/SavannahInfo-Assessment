@@ -70,7 +70,7 @@ TEST_RUNNER = 'django_nose.NoseTestSuiteRunner'
 
 NOSE_ARGS = [
     '--with-coverage',
-    '--cover-package=apps.customers,apps.orders,apps.sms',
+    '--cover-package=apps.customers,apps.orders',
 
 ]
 OAUTH2_PROVIDER = {
