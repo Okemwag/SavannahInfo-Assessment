@@ -3,7 +3,7 @@ name: Django CI/CD
 on:
   push:
     branches:
-      - main
+      - master
 
 jobs:
   test:
@@ -43,8 +43,8 @@ jobs:
     - name: Build and push Docker image
       run: |
         docker build -t info-assessment .
-        docker tag my-django-app <dockerhub_username>/my-django-app:latest
-        docker push <dockerhub_username>/my-django-app:latest
+        docker tag info-assessment okemwag/info-assessment:latest
+        docker push okemwag/info-assessment:latest
 
   deploy:
     runs-on: ubuntu-latest
